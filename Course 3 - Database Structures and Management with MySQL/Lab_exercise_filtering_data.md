@@ -1,4 +1,10 @@
-# Filtering data 
+### Connecting to the MySQL
+```bash
+
+# Connect to the MySQL server using the root user and password
+mysql -u awf -p 
+# Enter password: awf
+```
 
 
 
@@ -52,6 +58,56 @@ INSERT INTO Orders (OrderID, ClientID, ProductID , Quantity, Cost) VALUES (1, "C
 
 ```   
  
+5.1 - Create customer_purchases table 
+    
+```SQL
+CREATE TABLE customer_purchases (
+    CustomerID INT NOT NULL PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    Location VARCHAR(50),
+    Purchses INT
+);
+```
+
+
+5.2 - Insert data into customer_purchases table
+
+```SQL
+INSERT INTO customer_purchases (CustomerID, CustomerName, Location, Purchses) VALUES 
+(1, "Takashi Ito", "Gram County", 1500), 
+(3, "Jane Murphy", "Pinal County", 1750), 
+(4, "Laurina Delgado", "Santa Cruz County", 2000), 
+(5, "Benjamin Clauss", "Gila County", 2500),
+(6, "Altay Ayhan", "Cochise County", 2000),
+(7, "Greta Galkina", "Mohave County", 500),
+(8, "July Marr", "Gila County", 2250),
+(9, "Robert Anderson", "San Diego", 9000),
+(10, "Jennifer Taylor", "Dallas", 10000);
+
+
+# insert new record
+INSERT INTO customer_purchases (CustomerID, CustomerName, Location, Purchses) 
+VALUES (11, "Richard Harris", "San Francisco", 11000),
+(12, "Linda Lee", "San Jose", 12000),
+(13, "Michael Clark", "Austin", 13000),
+(14, "Elizabeth Hall", "Jacksonville", 14000),
+(15, "Charles Allen", "Indianapolis", 15000),
+(16, "Karen Young", "Columbus", 16000),
+(17, "Mark Hernandez", "Fort Worth", 17000),
+(18, "Margaret King", "Charlotte", 18000),
+(19, "Edward Wright", "Seattle", 19000),
+(20, "Lisa Lopez", "Denver", 20000);
+```
+
+```sql
+# detele the table
+DROP TABLE customer_purchases;
+```
+
+
+
+
+
 
 ## This activity aims to achieve the following objective:    
 
