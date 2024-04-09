@@ -16,14 +16,14 @@ In order to complete this lab, you must first have created the Little Lemon data
 1: The code to create the database is as follows:
 
 ```SQL  
-CREATE DATABASE Little_Lemon;  
+CREATE DATABASE Little_Lemon_databse_project;  
 ```  
 
 2: The code to use the database is as follows:  
  
 
 ```SQL  
-USE Little_Lemon;  
+USE Little_Lemon_databse_project;  
 ```  
 
 3: The code to create the Customers table is as follows:  
@@ -121,12 +121,27 @@ Note that there might be several ways to complete the same task. However, a suit
 
 ![Task 1 output](images/task1output.PNG)
 
+```sql
+-- Task 1: Filter data using the WHERE clause and logical operators
+SELECT * FROM Bookings WHERE BookingDate BETWEEN '2021-11-11' AND '2021-11-13';
+```
+
+
 **Task 2** : Create a JOIN query.
 
     Create a JOIN SQL statement on the Customers and Bookings tables. The statement must print the customers full names and related bookings IDs from the date 2021-11-11. The expected output result should be the same as that shown in the following screenshot:
 
 
 ![Task 2 output](images/task2output.PNG) 
+
+```sql
+-- Task 2: Create a JOIN query
+SELECT Customers.FullName, Bookings.BookingID
+FROM Customers
+JOIN Bookings ON Customers.CustomerID = Bookings.CustomerID
+WHERE Bookings.BookingDate = '2021-11-11';
+```
+
 
 **Task 3** : Create a GROUP BY query.
 
@@ -135,6 +150,17 @@ Note that there might be several ways to complete the same task. However, a suit
 
 ![Task 3 output](images/task3output.PNG) 
 
+```sql
+-- Task 3: Create a GROUP BY query
+SELECT BookingDate, COUNT(*) AS TotalBookings
+FROM Bookings
+GROUP BY BookingDate;
+
+```
+
+
+
+
 **Task 4** : Create a REPLACE statement.
 
     Create a SQL REPLACE statement that updates the cost of the Kabsa course from $17.00 to $20.00. 
@@ -142,6 +168,13 @@ Note that there might be several ways to complete the same task. However, a suit
 
 
 ![Task 4 output](images/task4output.PNG) 
+
+```sql
+-- Task 4: Create a REPLACE statement
+REPLACE INTO Courses (CourseName, Cost) VALUES ('Kabasa', 20.00);
+
+```
+
 
 
 **Task 5** : Create constraints 
@@ -160,6 +193,17 @@ Note that there might be several ways to complete the same task. However, a suit
 
 ![Task 5 output](images/task5output.PNG) 
 
+```sql
+-- Task 5: Create constraints
+CREATE TABLE DeliveryAddress (
+    ID INT PRIMARY KEY,
+    Address VARCHAR(255) NOT NULL,
+    Type VARCHAR(50) NOT NULL DEFAULT 'Private',
+    CustomerID INT NOT NULL,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+```
 
 **Task 6** : Alter table structure 
 
@@ -171,6 +215,12 @@ Note that there might be several ways to complete the same task. However, a suit
 
 ![Task 6 output](images/task6output.PNG) 
 
+```sql
+-- Task 6: Alter table structure
+ALTER TABLE Courses ADD Ingredients VARCHAR(255);
+```
+
+
 
 **Task 7** : Alter table structure 
 
@@ -179,6 +229,19 @@ Note that there might be several ways to complete the same task. However, a suit
     The expected output result of your query should be similar to the output in the following screenshot:
 
 ![Task 7 output](images/task7output.PNG) 
+```sql
+-- Task 7: Alter table structure with a subquery
+SELECT Customers.FullName
+FROM Customers
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM Bookings
+    WHERE BookingDate = '2021-11-11'
+);
+
+```
+
+
 
 **Task 8** : Create a virtual table 
 
@@ -187,6 +250,16 @@ Note that there might be several ways to complete the same task. However, a suit
     Select all data from the BookingsView virtual table. The expected output result should be the same as shown in the following screenshot.
 
 ![Task 8 output](images/task8output.PNG) 
+```sql
+-- Task 8: Create a virtual table
+CREATE VIEW BookingsView AS
+SELECT BookingID, BookingDate, NumberOfGuests
+FROM Bookings
+WHERE BookingDate < '2021-11-13' AND NumberOfGuests > 3;
+SELECT * FROM BookingsView;
+
+```
+
 
 
 **Task 9** : Create a stored procedure 
@@ -196,6 +269,18 @@ Note that there might be several ways to complete the same task. However, a suit
     After executing the query, call the "GetBookingsData" with '2021-11-13' as the input date passed to the stored procedure to show all bookings made on that date. The expected output of the CALL statement should be the same as the following screenshot:
 
 ![Task 9 output](images/task9output.PNG) 
+```sql
+-- Task 9: Create a stored procedure
+DELIMITER //
+CREATE PROCEDURE GetBookingsData(IN InputDate DATE)
+BEGIN
+    SELECT * FROM Bookings WHERE BookingDate = InputDate;
+END //
+DELIMITER ;
+
+-- Call the stored procedure with '2021-11-13' as input date
+CALL GetBookingsData('2021-11-13');
+```
 
 
 **Task 10** : Use the String function
@@ -210,4 +295,9 @@ Note that there might be several ways to complete the same task. However, a suit
 
 ![Task 10 output](images/task10output.PNG) 
 
+```sql
+-- Task 10: Use the String function
+SELECT CONCAT('ID: ', BookingID, ', Date: ', BookingDate, ', Number of guests: ', NumberOfGuests) AS 'Booking Details'
+FROM Bookings;
+```
 
